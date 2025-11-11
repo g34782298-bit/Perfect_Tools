@@ -1,0 +1,227 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PromptForge — AI Prompt Generator for Business & Students</title>
+  <meta name="description" content="PromptForge — Create SEO-friendly AI prompts for business and students. Generate, customize and copy prompts for marketing, study, productivity and creative writing." />
+  <meta name="keywords" content="AI prompt generator, prompt generator, SEO prompt, business prompts, student prompts, marketing prompts, study prompts" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%233A7CA5'/%3E%3Ctext x='50' y='57' font-size='46' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'%3EP%3C/text%3E%3C/svg%3E" />  <!-- Structured data for a web app -->  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PromptForge",
+    "url": ".",
+    "description": "Create SEO-friendly AI prompts for business users and students. Categories: Business, Marketing, Study, Productivity, Creative Writing.",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "All",
+    "author": {"@type":"Organization","name":"PromptForge"}
+  }
+  </script>  <style>
+    :root{
+      --bg:#f6fbff;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#3a7ca5;
+      --accent-2:#7cc6d9;
+      --glass: rgba(255,255,255,0.6);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#eef8ff);color:#0f172a}
+    .wrap{max-width:980px;margin:36px auto;padding:20px}
+
+    header{display:flex;align-items:center;gap:14px}
+    .logo{width:64px;height:64px;flex:0 0 64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;box-shadow:0 6px 20px rgba(58,124,165,0.18)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:4px 0 0;color:var(--muted)}
+
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;margin-top:18px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+
+    form.grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+    @media (max-width:820px){form.grid{grid-template-columns:1fr}}
+
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    select,input[type=text],textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #e6eef6;background:transparent;outline:none;font-size:14px}
+    textarea{min-height:130px;resize:vertical}
+
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:0 8px 20px rgba(58,124,165,0.12);}
+    .btn.ghost{background:transparent;border:1px solid #e6eef6;color:var(--accent)}
+
+    .result{margin-top:14px;padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(122,182,205,0.04),transparent);border:1px dashed rgba(58,124,165,0.06)}
+    pre{white-space:pre-wrap;margin:0;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;font-size:13px}
+
+    .meta{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    .small{font-size:13px;color:var(--muted)}
+
+    footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* small UI niceties */
+    .chip{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(58,124,165,0.08);color:var(--accent);font-weight:600}
+    .spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(15,23,42,0.06);border-top-color:var(--accent);animation:spin .9s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .example{padding:8px 10px;border-radius:10px;background:#f3fbff;border:1px solid #eaf8ff;color:var(--accent);cursor:pointer;font-weight:600}
+
+  </style></head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">PF</div>
+      <div>
+        <h1>PromptForge</h1>
+        <p class="lead">Generate professional, SEO-friendly AI prompts for business and students.</p>
+      </div>
+    </header><main class="card" role="main">
+  <form id="promptForm" class="grid" onsubmit="return false;">
+    <div>
+      <label for="category">Choose category</label>
+      <select id="category" aria-label="Category selector">
+        <option value="business">Business — Strategy & Reports</option>
+        <option value="marketing">Marketing — Social & Ads</option>
+        <option value="study">Study — Notes & Summaries</option>
+        <option value="productivity">Productivity — Templates & Workflows</option>
+        <option value="creative">Creative Writing — Stories & Scripts</option>
+      </select>
+
+      <label for="intent" style="margin-top:12px">Describe your goal</label>
+      <textarea id="intent" placeholder="e.g. write a 200-word blog intro about investing basics for beginners" aria-label="User intent"></textarea>
+
+      <div class="examples" aria-hidden="true">
+        <button type="button" class="example" data-text="write a concise executive summary about quarterly revenue trends">Executive summary</button>
+        <button type="button" class="example" data-text="create 5 social media captions about sustainable finance">Social captions</button>
+        <button type="button" class="example" data-text="summarize this research paper into 8 bullet points">Research summary</button>
+      </div>
+
+      <div style="margin-top:12px" class="controls">
+        <button id="generateBtn" class="btn primary" type="button">Generate Prompt</button>
+        <button id="copyBtn" class="btn ghost" type="button">Copy Prompt</button>
+        <span id="status" class="small" style="display:inline-flex;align-items:center;gap:8px"></span>
+      </div>
+
+      <div class="meta" style="margin-top:10px">
+        <div class="small">Tip: pick a category and be specific.</div>
+        <div class="chip">SEO-ready</div>
+      </div>
+    </div>
+
+    <!-- right column: preview and SEO info -->
+    <aside>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="margin:0;font-size:16px">Generated prompt</h2>
+        <div style="font-size:12px;color:var(--muted)">Preview</div>
+      </div>
+
+      <div id="resultCard" class="result" aria-live="polite">
+        <pre id="result">Your generated prompt will show here.</pre>
+      </div>
+
+      <div style="margin-top:12px;font-size:13px;color:var(--muted)">
+        <strong>SEO checklist</strong>
+        <ul style="margin:6px 0 0 18px;color:var(--muted)">
+          <li>H1 and headings included</li>
+          <li>Intent is explicit</li>
+          <li>Suggested keywords present</li>
+        </ul>
+      </div>
+    </aside>
+  </form>
+
+  <section style="margin-top:18px">
+    <h2 style="margin:0 0 8px 0;font-size:16px">How it works</h2>
+    <p style="margin:0;color:var(--muted)">Selecting a category makes the prompt voice and structure match the audience. Keep the intent concise for best results.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="small">Quick links: <a href="#">Docs</a> · <a href="#">Templates</a> · <a href="#">Contact</a></div>
+  <div style="margin-top:8px">© PromptForge</div>
+</footer>
+
+  </div>  <script>
+    // Minimal, dependency-free logic
+    (function(){
+      const category = document.getElementById('category');
+      const intent = document.getElementById('intent');
+      const generateBtn = document.getElementById('generateBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const result = document.getElementById('result');
+      const status = document.getElementById('status');
+      const examples = document.querySelectorAll('.example');
+
+      const templates = {
+        business: (txt) => `Act as an experienced business analyst and write a clear, professional response. Goal: ${txt}. Include a concise executive summary, 3 key takeaways, suggested action items, and recommended KPIs. Keep tone formal and actionable.`,
+        marketing: (txt) => `Act as a senior marketing strategist. Task: ${txt}. Provide 5 short social posts, one long-form caption, 5 hashtags, and one CTA. Keep it persuasive and audience-focused.`,
+        study: (txt) => `Act as an expert tutor. Task: ${txt}. Provide a short study guide, 8 bullet-point notes, a 100-word summary and 3 quiz questions with answers. Use simple language suitable for students.`,
+        productivity: (txt) => `Act as a productivity coach. Task: ${txt}. Provide a step-by-step template, estimated times, tools needed, and a 3-step quick checklist. Keep it practical and concise.`,
+        creative: (txt) => `Act as a creative writer. Task: ${txt}. Produce a 400-word short piece, a catchy title, and a 2-sentence synopsis. Use vivid imagery and varied sentence rhythm.`
+      };
+
+      function showStatus(message, busy){
+        status.innerHTML = '';
+        if(busy){
+          const s = document.createElement('span'); s.className='spinner'; status.appendChild(s);
+        }
+        const t = document.createElement('span'); t.textContent = message; status.appendChild(t);
+      }
+
+      function generate(){
+        const cat = category.value;
+        const txt = intent.value && intent.value.trim();
+        if(!txt){
+          result.textContent = 'Please enter a clear goal for the prompt.';
+          return;
+        }
+        showStatus('Generating prompt...', true);
+
+        // Simulate a short generation delay to show spinner
+        setTimeout(() => {
+          try{
+            const template = templates[cat] || templates.business;
+            const generated = template(txt);
+
+            // Append SEO instructions for prompt engineering
+            const seoEnhance = "\n\nSEO guidance: suggest 3 relevant keywords, include an H1 and an outline, and keep meta description under 160 characters.";
+            const full = generated + seoEnhance;
+            result.textContent = full;
+            showStatus('Ready', false);
+          }catch(e){
+            result.textContent = 'Error generating prompt.';
+            showStatus('Failed', false);
+          }
+        }, 450);
+      }
+
+      function copyPrompt(){
+        const text = result.textContent || '';
+        if(!text || text === 'Your generated prompt will show here.' || text.includes('Please enter')){
+          showStatus('Nothing to copy', false);
+          return;
+        }
+        navigator.clipboard.writeText(text).then(()=>{
+          showStatus('Copied to clipboard', false);
+          copyBtn.textContent = 'Copied';
+          setTimeout(()=>copyBtn.textContent='Copy Prompt',1200);
+        }).catch(()=>{
+          showStatus('Copy failed — select and press Ctrl+C', false);
+        });
+      }
+
+      generateBtn.addEventListener('click', generate);
+      copyBtn.addEventListener('click', copyPrompt);
+
+      examples.forEach(btn => btn.addEventListener('click', (e)=>{ intent.value = e.currentTarget.dataset.text; generate(); }));
+
+      // Small accessibility: press Ctrl+Enter to generate
+      intent.addEventListener('keydown', function(e){ if(e.ctrlKey && e.key === 'Enter'){ generate(); } });
+
+      // SEO: ensure headings exist for crawlers (already in markup), fast load (no heavy libs)
+
+    })();
+  </script></body>
+</html>
